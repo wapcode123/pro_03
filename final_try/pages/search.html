@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/nav.css">
+  <link rel="stylesheet" href="../styles/searchuser.css">
+
+  <title>home</title>
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-storage.js"></script>
+
+</head>
+<body>
+
+  <!-- header  -->
+  <div class="topnav" id="myTopnav">
+    <a href="#home" class="active">
+      Travel Connect
+    </a>
+    
+    <a href="#about">Home</a>
+    <a href="#about">About</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <iconify-icon icon="heroicons:bars-3-16-solid" width="24" height="24"  style="color: #ffffff"></iconify-icon>
+    </a>
+  </div>
+
+  <!--float button-->
+
+  <div class="container">
+    <ul id="floating-buttons">
+
+        <li><a href="./profile.html" class="nav-btn"> 
+          <iconify-icon icon="gg:profile" width="35" height="35"  style="color: #ffffff"></iconify-icon>
+        </a></li>
+
+        <li><a href="./search.html" class="nav-btn">
+          <iconify-icon icon="pajamas:search-sm" width="35" height="35"  style="color: #ffffff"></iconify-icon>
+        </a></li>
+
+        <li><a href="./events.html" class="nav-btn">
+          <iconify-icon icon="f7:plus-app" width="35" height="35"  style="color: #ffffff"></iconify-icon>
+        </a></li>
+
+       <li><a  class="nav-btn" onclick="logout()">
+        <iconify-icon icon="tabler:logout" width="35" height="35"  style="color: #ffffff"></iconify-icon>
+      </a></li>
+
+    </ul>
+</div>
+
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<div class="content">
+    <div id="users" class="col-12">
+        <div id="loaderdiv">
+          <center>  <img src="https://www.onwebchat.com/img/spinner.gif" alt="" width="100px">  </center>
+        </div>
+    </div>  
+
+    <!-- Popup for user details -->
+    <div id="userPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <div id="popupData"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+
+    // Function to open popup 
+    function openPopup(userData) {
+        var popupData = document.getElementById("popupData");
+        popupData.innerHTML = ""; 
+        // Populate popup with user details
+        var details = "<p>Name: " + userData.Name + "</p>";
+        details += "<p>Destination: " + userData.Destination + "</p>";
+        details += "<p>Departure: " + userData.Departure + "</p>";
+        details += "<p>Age: " + userData.Age + "</p>";
+        details += "<p>Gender: " + userData.Gender + "</p>";
+        // Check if medialink is present
+        if (userData.Medialink) {
+          details += "<p>Medialink: <a href='" + userData.medialinks + "' target='_blank'>Click Here</a></p>";
+        }
+        
+        popupData.innerHTML = details;
+
+        // Show the popup
+        document.getElementById("userPopup").style.display = "block";
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        document.getElementById("userPopup").style.display = "none";
+    }
+</script>
+
+<script src="../js/search.js"></script>
+<script src="../scripts/firebase.js"></script>
+<script src="../scripts/searchuser.js"></script>
+
+</body>
+</html>
